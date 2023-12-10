@@ -1,23 +1,25 @@
 pipeline {
-    agent { label "dev-server"}
-    
-    stages {
-        
-        stage("code"){
+    agent any
+    tools{
+        maven 'maven_3_5_0'
+    }
+    stages{
+        stage('Build Maven'){
             steps{
-                git url: "https://github.com/LondheShubham153/node-todo-cicd.git", branch: "master"
-                echo 'bhaiyya code clone ho gaya'
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Priyal-Patel0810/node-todo-cicd-master.git']]])
+                sh 'mvn clean install'
+                echo 'Building of maven project is completed'
             }
         }
         stage("build and test"){
             steps{
-                sh "docker build -t node-app-test-new ."
-                echo 'code build bhi ho gaya'
+                docker build . -t node-app-todo
+                docker run -d --name node-app-container -p 8000:8000 node-app-todo
+                echo 'Image is built'
             }
         }
         stage("scan image"){
-            steps{
-                echo 'image scanning ho gayi'
+                                                                                                                           1,10          Top                echo 'image scanning is completed'
             }
         }
         stage("push"){
@@ -25,15 +27,15 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
                 sh "docker tag node-app-test-new:latest ${env.dockerHubUser}/node-app-test-new:latest"
-                sh "docker push ${env.dockerHubUser}/node-app-test-new:latest"
-                echo 'image push ho gaya'
+                sh "docker push ${env.dockerHubUser}/node-app-todo:latest"
+                echo 'Pushing image is completed'
                 }
             }
         }
         stage("deploy"){
             steps{
                 sh "docker-compose down && docker-compose up -d"
-                echo 'deployment ho gayi'
+                echo 'Deployment Completed'
             }
         }
     }
