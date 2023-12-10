@@ -1,39 +1,39 @@
 pipeline {
-    agent { label "dev-server"}
-    
-    stages {
-        
-        stage("code"){
+    agent any
+    tools{
+        maven 'maven_3_6_3'
+    }
+    stages{
+        stage('Build Maven'){
             steps{
-                git url: "https://github.com/Priyal-Patel0810/node-todo-cicd-master.git", branch: "master"
-                echo 'bhaiyya code clone ho gaya'
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Priyal-Patel0810/node-todo-cicd-master.git']]])
+                sh 'mvn clean install'
             }
         }
-        stage("build and test"){
+        stage('Build docker image'){
             steps{
-                sh "docker build -t node-app-todo ."
-                echo 'code build bhi ho gaya'
-            }
-        }
-        stage("scan image"){
-            steps{
-                echo 'image scanning ho gayi'
-            }
-        }
-        stage("push"){
-            steps{
-                withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
-                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-                sh "docker tag node-app-todo:latest ${env.dockerHubUser}/node-app-todo:latest"
-                sh "docker push ${env.dockerHubUser}/node-app-test-new:latest"
-                echo 'image push ho gaya'
+                script{
+                    sh 'docker build -t node-app-todo .'
                 }
             }
         }
-        stage("deploy"){
+        stage('Push image to Hub'){
             steps{
-                sh "docker-compose down && docker-compose up -d"
-                echo 'deployment ho gayi'
+                script{
+                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                   sh 'docker login -u priyal0810 -p ${dockerhubpwd}'
+
+}
+                   sh 'docker push priyal0810/node-app-todo'
+                }
+            }
+        }
+        stage('Deploy'){
+            steps{
+                script{
+                    sh "docker-compose down && docker-compose up -d"
+                    echo 'deployment ho gayi'
+                }
             }
         }
     }
