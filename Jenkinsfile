@@ -13,7 +13,7 @@ pipeline {
         }
         stage("build and test"){
             steps{
-                sh "docker build -t node-app-todo ."
+                sh "docker build -t node-app-test-new ."
                 echo 'Image is built'
             }
         }
@@ -25,7 +25,7 @@ pipeline {
             steps{
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-                sh "docker tag node-app-todo:latest ${env.dockerHubUser}/node-app-todo:latest"
+                sh "docker tag node-app-test-new:latest ${env.dockerHubUser}/node-app-test-new:latest"
                 sh "docker push ${env.dockerHubUser}/node-app-todo:latest"
                 echo 'Pushing image is completed'
                 }
