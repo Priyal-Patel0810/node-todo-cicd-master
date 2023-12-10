@@ -1,6 +1,8 @@
 pipeline {
-   
-    agent { label "dev-server"}
+   agent any
+    tools{
+        maven 'maven 6.2.0'
+    }
   
     stages{
         stage('Build Maven'){
