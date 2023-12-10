@@ -18,6 +18,7 @@ pipeline {
             }
         }
         stage("scan image"){
+            steps{
                 echo 'image scanning is completed'
             }
         }
