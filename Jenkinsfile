@@ -1,8 +1,7 @@
 pipeline {
-    agent any
-    tools{
-        maven 'maven 3.9.6'
-    }
+   
+    agent { label "dev-server"}
+  
     stages{
         stage('Build Maven'){
             steps{
