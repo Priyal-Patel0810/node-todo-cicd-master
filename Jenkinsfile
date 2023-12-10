@@ -3,22 +3,21 @@ pipeline {
     
     stages {
         
-        stage("Build Project"){
+        stage("code"){
             steps{
-                git url: "https://github.com/Priyal-Patel0810/node-todo-cicd-master.git", branch: "master"
-                echo 'Build is completed'
+                git url: "https://github.com/LondheShubham153/node-todo-cicd.git", branch: "master"
+                echo 'bhaiyya code clone ho gaya'
             }
         }
-  
         stage("build and test"){
             steps{
                 sh "docker build -t node-app-test-new ."
-                echo 'Image is built'
+                echo 'code build bhi ho gaya'
             }
         }
         stage("scan image"){
             steps{
-                echo 'image scanning is completed'
+                echo 'image scanning ho gayi'
             }
         }
         stage("push"){
@@ -26,15 +25,15 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
                 sh "docker tag node-app-test-new:latest ${env.dockerHubUser}/node-app-test-new:latest"
-                sh "docker push ${env.dockerHubUser}/node-app-todo:latest"
-                echo 'Pushing image is completed'
+                sh "docker push ${env.dockerHubUser}/node-app-test-new:latest"
+                echo 'image push ho gaya'
                 }
             }
         }
         stage("deploy"){
             steps{
                 sh "docker-compose down && docker-compose up -d"
-                echo 'Deployment Completed'
+                echo 'deployment ho gayi'
             }
         }
     }
