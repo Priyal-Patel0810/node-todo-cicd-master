@@ -10,14 +10,6 @@ pipeline {
             }
         }
   
-    stages{
-        stage('Build Maven'){
-            steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Priyal-Patel0810/node-todo-cicd-master.git']]])
-                sh 'mvn clean install'
-                echo 'Building of maven project is completed'
-            }
-        }
         stage("build and test"){
             steps{
                 sh "docker build -t node-app-test-new ."
