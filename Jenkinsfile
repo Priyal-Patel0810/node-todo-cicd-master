@@ -18,13 +18,14 @@ pipeline {
         stage('Push image to Hub'){
             steps{
                 script{
-                   withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
-                   sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-                   sh "docker tag node-app-test-new:latest ${env.dockerHubUser}/node-app-test-new:latest"
-                   sh "docker push ${env.dockerHubUser}/node-app-test-new:latest"}
-                }
+                    withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
+                    sh 'docker login -u priyal0810 -p ${dockerhubpwd}'
+
+                    sh 'docker push priyal0810/node-app-todo'
+                }  
             }
         }
+    }
         stage('Deploy'){
             steps{
                 script{
