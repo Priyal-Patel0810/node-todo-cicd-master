@@ -1,8 +1,14 @@
 pipeline {
-   agent any
-    tools{
-        maven 'maven 6.2.0'
-    }
+    agent { label "dev-server"}
+    
+    stages {
+        
+        stage("Build Project"){
+            steps{
+                git url: "https://github.com/Priyal-Patel0810/node-todo-cicd-master.git", branch: "master"
+                echo 'Build is completed'
+            }
+        }
   
     stages{
         stage('Build Maven'){
