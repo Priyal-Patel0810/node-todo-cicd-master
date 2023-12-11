@@ -29,8 +29,7 @@ pipeline {
         stage('Deploy'){
             steps{
                 script{
-                    sh "docker-compose down && docker-compose up -d"
-                    echo 'deployment ho gayi'
+                    sh "docker -H ssh://jenkins@54.205.227.148 run -d -p 8000:8080 priyal0810/node-app-todo"
                 }
             }
         }
