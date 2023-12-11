@@ -5,7 +5,7 @@ pipeline {
         stage('Build Maven'){
             steps{
                 git url: "https://github.com/Priyal-Patel0810/node-todo-cicd-master.git", branch: "master"
-                echo 'bhaiyya code clone ho gaya'
+                echo 'Maven Project build is created'
             }
         }
         stage('Build docker image'){
@@ -31,7 +31,7 @@ pipeline {
                 script{
 
                         sh "docker-compose down && docker-compose up -d"
-                        echo 'deployment ho gayi'
+                        echo 'Deployment is completed'
                 }
             }
         }
