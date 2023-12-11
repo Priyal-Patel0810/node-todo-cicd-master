@@ -29,7 +29,7 @@ pipeline {
         stage('Deploy'){
             steps{
                 script{
-                        sshCommand remote: "ec2-user@${172.31.20.115}", command: '''
+                        sshCommand remote:"ec2-user@${172.31.20.115}", command: '''
                         # Pull the latest Docker image
                         docker pull $priyal0810/node-app-todo
 
@@ -39,6 +39,7 @@ pipeline {
 
                         # Run the new container
                         docker run -d --name node-app-todo -p 8000:8000 $DOCKER_IMAGE
+                        '''
                 }
             }
         }
