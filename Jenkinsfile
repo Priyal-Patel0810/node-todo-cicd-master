@@ -29,7 +29,7 @@ pipeline {
         stage('Deploy'){
             steps{
                 script{
-                    sh "docker -H ssh://jenkins@54.205.227.148 run -d -p 8000:8080 priyal0810/node-app-todo"
+                    sh "docker -H ssh://jenkins@172.31.20.115 run -d -p 8000:8080 priyal0810/node-app-todo"
                 }
             }
         }
