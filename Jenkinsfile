@@ -29,17 +29,8 @@ pipeline {
         stage('Deploy'){
             steps{
                 script{
-                        sshCommand remote:"ec2-user@${172.31.20.115}", command: '''
-                        # Pull the latest Docker image
-                        docker pull $priyal0810/node-app-todo
-
-                        # Stop and remove the existing container
-                        docker stop node-app-todo || true
-                        docker rm node-app-todo || true
-
-                        # Run the new container
-                        docker run -d --name node-app-todo -p 8000:8000 $DOCKER_IMAGE
-                        '''
+                        sh "docker-compose down && docker-compose up -d"
+                        echo 'deployment ho gayi'
                 }
             }
         }
