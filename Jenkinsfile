@@ -5,7 +5,6 @@ pipeline {
         stage('Build Maven'){
             steps{
                 git url: "https://github.com/Priyal-Patel0810/node-todo-cicd-master.git", branch: "master"
-                sh 'mvn clean install'
                 echo 'Maven Project build is created'
             }
         }
