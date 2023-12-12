@@ -30,19 +30,19 @@ pipeline {
             steps{
                 script{
                         sshagent(credentials: ['18.213.4.84']) {
-                     
-                        remote.name = 'EC2Instance'
-                        remote.host = '172.31.25.28'
-                        remote.user = 'ubuntu'
-                        remote.identityFile = '/Downloads/Devops.pem'
+                       
+                        name = 'EC2Instance'
+                        host = '172.31.25.28'
+                        user = 'ubuntu'
+                        identityFile = '/Downloads/Devops.pem'
 
                         // Pull the Docker image
-                        remote.command = "docker pull priyal0810/node-app-todo:latest"
-                        remote.run()
+                        docker pull priyal0810/node-app-todo:latest
+                        run()
 
                         // Run the Docker container
-                        remote.command = "docker run -d -p 8000:8000 priyal0810/node-app-todo:latest"
-                        remote.run()
+                        docker run -d -p 8000:8000 priyal0810/node-app-todo:latest
+                        run()
                       
                         echo 'Deployment is completed'
                 }
