@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     stages{
-        stage('Build Maven'){
+        stage('Build Project'){
             steps{
                 git url: "https://github.com/Priyal-Patel0810/node-todo-cicd-master.git", branch: "master"
                 echo 'Project is build'
