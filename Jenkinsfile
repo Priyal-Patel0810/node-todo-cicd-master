@@ -37,11 +37,11 @@ pipeline {
                         identityFile = '/Downloads/Devops.pem'
 
                         // Pull the Docker image
-                        docker pull priyal0810/node-app-todo:latest
+                        command="docker pull priyal0810/node-app-todo:latest"
                         run()
 
                         // Run the Docker container
-                        docker run -d -p 8000:8000 priyal0810/node-app-todo:latest
+                        command="docker run -d -p 8000:8000 priyal0810/node-app-todo:latest"
                         run()
                       
                         echo 'Deployment is completed'
