@@ -21,7 +21,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
                     sh 'docker login -u priyal0810 -p ${dockerhubpwd}'
 
-                    sh 'docker push priyal0810/node-app-todo'
+                    sh 'docker push priyal0810/node-app-todo:latest'
                 }  
             }
         }
