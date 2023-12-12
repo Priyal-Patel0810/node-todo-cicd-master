@@ -29,9 +29,9 @@ pipeline {
         stage('Deploy'){
             steps{
                 script{
-
-                        sh "docker-compose down && docker-compose up -d"
-                        echo 'Deployment is completed'
+                        ssh -i "Downloads/DevOps keypair.pem" ubuntu@172.31.20.115
+                        docker pull priyal0810/node-app-todo:latest
+                        docker run -d -p 8000:8000 priyal0810/node-app-todo:latest
                 }
             }
         }
