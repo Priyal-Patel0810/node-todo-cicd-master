@@ -29,7 +29,7 @@ pipeline {
         stage('Deploy'){
             steps{
                 script{
-                        ssh -i /Downloads/DevOps-keypair.pem ubuntu@172.31.20.115
+                        ssh -i /Downloads/DevOps.pem ubuntu@172.31.25.28
                         docker pull priyal0810/node-app-todo:latest
                         docker run -d -p 8000:8000 priyal0810/node-app-todo:latest
                 }
