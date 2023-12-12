@@ -3,11 +3,9 @@ pipeline {
     
     stages{
         stage('Build Maven'){
-            agent { docker 'maven:3.9.6' }
             steps{
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Priyal-Patel0810/node-todo-cicd-master']])
+                git url: "https://github.com/Priyal-Patel0810/node-todo-cicd-master.git", branch: "master"
                 sh 'mvn clean install'
-                
                 echo 'Maven Project build is created'
             }
         }
