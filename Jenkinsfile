@@ -31,18 +31,18 @@ pipeline {
                 script{
                         sshagent(credentials: ['18.213.4.84']) {
                        
-                        name = 'EC2Instance'
-                        host = '172.31.25.28'
-                        user = 'ubuntu'
-                        identityFile = '/Downloads/Devops.pem'
+                        def name = 'EC2Instance'
+                        def host = '172.31.25.28'
+                        def user = 'ubuntu'
+                        def identityFile = '/Downloads/Devops.pem'
 
                         // Pull the Docker image
-                        command="docker pull priyal0810/node-app-todo:latest"
-                        run()
+                        def command="docker pull priyal0810/node-app-todo:latest"
+                        def run=run()
 
                         // Run the Docker container
-                        command="docker run -d -p 8000:8000 priyal0810/node-app-todo:latest"
-                        run()
+                        def command="docker run -d -p 8000:8000 priyal0810/node-app-todo:latest"
+                        def run=run()
                       
                         echo 'Deployment is completed'
                 }
