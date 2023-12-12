@@ -1,11 +1,10 @@
 pipeline {
     agent any
-    tools{
-        maven 'maven 3.9.6'
-    }
+    
     stages{
         stage('Build Maven'){
             steps{
+                def tool= tool 'maven'
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Priyal-Patel0810/node-todo-cicd-master']])
                 sh 'mvn clean install'
                 
