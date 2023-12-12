@@ -30,7 +30,7 @@ pipeline {
             steps{
                 script{
                         sshagent(credentials: ['18.213.4.84']) {
-                        def remote = [:]
+                     
                         remote.name = 'EC2Instance'
                         remote.host = '172.31.25.28'
                         remote.user = 'ubuntu'
