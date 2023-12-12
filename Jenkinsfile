@@ -29,21 +29,7 @@ pipeline {
         stage('Deploy'){
             steps{
                 script{
-                        sshagent(credentials: ['18.213.4.84']) {
-                       
-                        def name = 'EC2Instance'
-                        def host = '172.31.25.28'
-                        def user = 'ubuntu'
-                        def identityFile = '/Downloads/Devops.pem'
-
-                        // Pull the Docker image
-                        def command="docker pull priyal0810/node-app-todo:latest"
-                        def run=run()
-
-                        // Run the Docker container
-                        def command1="docker run -d -p 8000:8000 priyal0810/node-app-todo:latest"
-                        def run1=run()
-                      
+                        sh "docker-compose down && docker-compose up -d"
                         echo 'Deployment is completed'
                 }
             }
