@@ -41,8 +41,8 @@ pipeline {
                         def run=run()
 
                         // Run the Docker container
-                        def command="docker run -d -p 8000:8000 priyal0810/node-app-todo:latest"
-                        def run=run()
+                        def command1="docker run -d -p 8000:8000 priyal0810/node-app-todo:latest"
+                        def run1=run()
                       
                         echo 'Deployment is completed'
                 }
